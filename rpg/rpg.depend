@@ -1,6 +1,6 @@
 # depslib dependency file v1.0
-1766544414 source:d:\tp\lab3\rpg\main.cpp
+1766545398 source:d:\tp\lab3\rpg\main.cpp
 	<iostream>
 	<string>
-	<stdlib.h>
+	<windows.h>
 

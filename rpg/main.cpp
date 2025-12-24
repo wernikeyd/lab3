@@ -3,6 +3,8 @@
 #include <windows.h>
 using namespace std;
 // Базовый класс для всех персонажей
+string heroName;
+string enemyName;
 class Character         {
 private:
     string name;
@@ -25,7 +27,7 @@ public:
     void takeDamage(int dmg) {
         health -= dmg;
         if (health < 0) health = 0;
-        cout << name << "получил" <<  dmg << " урона. Осталось HP: " << health << endl;
+        cout << name << " получил " <<  dmg << " урона. Осталось HP: " << health << endl;
     }
 
     //  метод: атака другого персонажа
@@ -47,12 +49,19 @@ public:
 
 };
 int main() {
-
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    // Создаем двух персонажей
-    Character hero("Артур", 100, 20);
-    Character enemy("Орк", 80, 10);
+     // Ввод имени героя
+    cout << "Введите имя героя: ";
+    cin >> heroName;
+
+    // Ввод имени врага
+    cout << "Введите имя врага: ";
+    cin >> enemyName;
+
+    // Создаем персонажей с пользовательскими именами
+    Character hero(heroName, 100, 20);
+    Character enemy(enemyName, 80, 10);
 
  cout << "\n=== НАЧАЛО БОЯ ===\n" << endl;
     // бой
