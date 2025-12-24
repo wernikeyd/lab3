@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
-
+#include <windows.h>
 using namespace std;
-
-// Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ РґР»СЏ РІСЃРµС… РїРµСЂСЃРѕРЅР°Р¶РµР№
+// Базовый класс для всех персонажей
 class Character         {
 private:
     string name;
@@ -11,27 +10,27 @@ private:
     int damage;
 
 public:
-    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+    // Конструктор
     Character(string n, int h, int d) {
         name = n;
         health = h;
         damage = d;
     }
 
-    // РњРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё
+    // Метод для получения информации
     void getInfo() {
-        cout << name << " (HP: " << health << ", РЈСЂРѕРЅ: " << damage << ")" << endl;}
+        cout << name << " (HP: " << health << ", Урон: " << damage << ")" << endl;}
 
-    // РјРµС‚РѕРґ: РїРѕР»СѓС‡РµРЅРёРµ СѓСЂРѕРЅР°
+    // метод: получение урона
     void takeDamage(int dmg) {
         health -= dmg;
         if (health < 0) health = 0;
-        cout << "рџ’Ґ "<< name << " РїРѕР»СѓС‡РёР» " << dmg << " СѓСЂРѕРЅР°. РћСЃС‚Р°Р»РѕСЃСЊ HP: " << health << endl;
+        cout << name << "получил" <<  dmg << " урона. Осталось HP: " << health << endl;
     }
 
-    //  РјРµС‚РѕРґ: Р°С‚Р°РєР° РґСЂСѓРіРѕРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р°
+    //  метод: атака другого персонажа
     void attack(Character* target) {
-        cout << "вљ”пёЏ "<< name << " Р°С‚Р°РєСѓРµС‚ " << target->name << "!" << endl;
+        cout << name << " атакует " << target->name << "!" << endl;
         target->takeDamage(damage);
     }
 
@@ -41,20 +40,35 @@ public:
     }
 
 
-    // Р“РµС‚С‚РµСЂ РґР»СЏ РёРјРµРЅРё
+    // Геттер для имени
     string getName() {
         return name;
     }
 
 };
 int main() {
-    // РЎРѕР·РґР°РµРј РґРІСѓС… РїРµСЂСЃРѕРЅР°Р¶РµР№
-    Character hero("РђСЂС‚СѓСЂ", 100, 20);
-    Character enemy("РћСЂРє", 80, 10);
 
-    // РџРѕРєР°Р·С‹РІР°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ
-    hero.getInfo();
-    enemy.getInfo();
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    // Создаем двух персонажей
+    Character hero("Артур", 100, 20);
+    Character enemy("Орк", 80, 10);
 
+ cout << "\n=== НАЧАЛО БОЯ ===\n" << endl;
+    // бой
+    while (hero.isAlive() && enemy.isAlive()) {
+        hero.attack(&enemy);
+        if (enemy.isAlive()) {
+            enemy.attack(&hero);
+        }
+        cout << "---" << endl;
+    }
+    // Результат
+    cout << "\n=== БОЙ ЗАВЕРШЕН ===" << endl;
+    if (hero.isAlive()) {
+        cout << "Победил: " << hero.getName() << "!" << endl;
+    } else {
+        cout << "Победил: " << enemy.getName() << "!" << endl;
+    }
     return 0;
 }
