@@ -3,44 +3,58 @@
 
 using namespace std;
 
-// Базовый класс для всех персонажей
-class Character {
+// Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ РґР»СЏ РІСЃРµС… РїРµСЂСЃРѕРЅР°Р¶РµР№
+class Character         {
 private:
     string name;
     int health;
     int damage;
 
 public:
-    // Конструктор
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     Character(string n, int h, int d) {
         name = n;
         health = h;
         damage = d;
     }
 
-    // Метод для получения информации
+    // РњРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё
     void getInfo() {
-        cout << name << " (HP: " << health << ", Урон: " << damage << ")" << endl;}
+        cout << name << " (HP: " << health << ", РЈСЂРѕРЅ: " << damage << ")" << endl;}
 
-    // метод: получение урона
+    // РјРµС‚РѕРґ: РїРѕР»СѓС‡РµРЅРёРµ СѓСЂРѕРЅР°
     void takeDamage(int dmg) {
         health -= dmg;
         if (health < 0) health = 0;
-        cout << name << " получил " << dmg << " урона. Осталось HP: " << health << endl;
+        cout << "рџ’Ґ "<< name << " РїРѕР»СѓС‡РёР» " << dmg << " СѓСЂРѕРЅР°. РћСЃС‚Р°Р»РѕСЃСЊ HP: " << health << endl;
     }
 
-    //  метод: атака другого персонажа
+    //  РјРµС‚РѕРґ: Р°С‚Р°РєР° РґСЂСѓРіРѕРіРѕ РїРµСЂСЃРѕРЅР°Р¶Р°
     void attack(Character* target) {
-        cout << name << " атакует " << target->name << "!" << endl;
+        cout << "вљ”пёЏ "<< name << " Р°С‚Р°РєСѓРµС‚ " << target->name << "!" << endl;
         target->takeDamage(damage);
     }
 
-    // Геттер для имени
+
+    bool isAlive() {
+        return health > 0;
+    }
+
+
+    // Р“РµС‚С‚РµСЂ РґР»СЏ РёРјРµРЅРё
     string getName() {
         return name;
     }
 
 };
 int main() {
+    // РЎРѕР·РґР°РµРј РґРІСѓС… РїРµСЂСЃРѕРЅР°Р¶РµР№
+    Character hero("РђСЂС‚СѓСЂ", 100, 20);
+    Character enemy("РћСЂРє", 80, 10);
+
+    // РџРѕРєР°Р·С‹РІР°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ
+    hero.getInfo();
+    enemy.getInfo();
+
     return 0;
 }
